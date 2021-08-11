@@ -11,8 +11,7 @@ class Modal {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-  constructor(element){
-
+  constructor(element) {
   }
 
   /**
@@ -21,7 +20,6 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-
   }
 
   /**
@@ -29,7 +27,7 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose(e) {
-
+    
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
@@ -41,7 +39,7 @@ class Modal {
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
-  close(){
+  close() {
 
   }
 }
