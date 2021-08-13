@@ -7,7 +7,7 @@ const createRequest = (options = {}) => {
     xhr.responseType = 'json';
     if (options.method === 'GET') {
         if (options.data) {
-            xhr.open(options.method, options.url + '?' + options.data.email + '&password=' + options.data.password, true);
+            xhr.open(options.method, options.url + '?mail=' + options.data.mail + '&password=' + options.data.password, true);
             try {
                 xhr.send()
             }
