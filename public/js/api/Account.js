@@ -16,6 +16,9 @@ class Account extends Entity {
         if (err === null && response.success) {
           callback(err, response)
         }
+        else {
+          return null
+        }
       }
     })
   }

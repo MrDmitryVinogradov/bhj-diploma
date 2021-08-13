@@ -43,10 +43,27 @@ class Sidebar {
   static initAuthLinks() {
     let registerButton = document.querySelector('.menu-item_register');
     let loginButton = document.querySelector('.menu-item_login');
-    let modalRegister = document.querySelector('#modal-register');
-    let modalLogin = document.querySelector('#modal-login');
-    registerButton.onclick = () => modalRegister.style.display = 'block';
-    loginButton.onclick = () => modalLogin.style.display = 'block';
-
+    let quitButton = document.querySelector('.menu-item_logout');
+    registerButton.onclick = (e) => {
+      e.preventDefault();
+      let modal = App.getModal('register');
+      modal.open();
+    }
+    loginButton.onclick = (e) => {
+      e.preventDefault();
+      let modal = App.getModal('login');
+      modal.open();
+    } 
+    quitButton.onclick = (e) => {
+      e.preventDefault();
+      User.logout((err, response) => {
+        if (response.success) {
+          App.setState('init');
+        }
+        else {
+          throw err
+        }
+      })
+    }
   }
 }
