@@ -35,7 +35,10 @@ class User {
         name: localStorage.getItem('name')
       }
     }
-  } 
+    else {
+      return undefined
+    }
+  }
 
   /**
    * Получает информацию о текущем
@@ -48,15 +51,16 @@ class User {
       callback: (err, response) => {
         if (err === null) {
           callback(err, response);
-          if (response === 'success') {
+          if (response.success) {
             this.current();
           }
           else {
             this.unsetCurrent();
+            console.log(response.error);
           }
         }
       }
-    })
+    });
   }
 
   /**
@@ -67,18 +71,20 @@ class User {
    * */
   static login(data, callback) {
     createRequest({
-      url: this.URL + '/login',
       method: 'POST',
+      url: this.URL + '/login',
       data,
       callback: (err, response) => {
-        if (response && response.user) {
-          this.setCurrent(response.user);
-        }
-        else {
+        if (err === null) {
+          if (response.success) {
+            this.setCurrent(response.user);
+          } else {
+            console.log(response.error);
+          }
           callback(err, response);
         }
       }
-    })
+    });
   }
 
   /**
@@ -88,7 +94,7 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-    if (data.name && data.email && data.password) {
+    if (data.name && data.mail && data.password) {
       createRequest({
         url: this.URL + '/register',
         method: 'POST',
@@ -118,8 +124,9 @@ class User {
       url: this.URL + '/logout',
       method: 'POST',
       callback: () => {
-      callback()
+        callback()
       }
     })
+    this.unsetCurrent();
   }
 }

@@ -12,7 +12,7 @@ class Entity {
   static list(data, callback) {
       createRequest({
       data: data,
-      method: 'POST',
+      method: 'GET',
       url: this.URL,
       callback: (err, response) => {
         if (err === null) {
@@ -23,7 +23,7 @@ class Entity {
         }
       }
     });
-  };
+  }
 
   /**
    * Создаёт счёт или доход/расход с помощью запроса
@@ -44,7 +44,7 @@ class Entity {
           console.log(err);
         }
       }
-    })
+    });
   }
 
   /**
@@ -65,6 +65,6 @@ class Entity {
           console.log(err);
         }
       }
-    })
+    });
   }
 }

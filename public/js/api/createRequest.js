@@ -7,26 +7,33 @@ const createRequest = (options = {}) => {
     xhr.responseType = 'json';
     if (options.method === 'GET') {
         if (options.data) {
-            xhr.open(options.method, options.url + '?mail=' + options.data.mail + '&password=' + options.data.password, true);
-            try {
-                xhr.send()
+            let url = options.url + '?';
+            for (key in options.data) {
+               url = url + `${key}` + '=' + `${options.data[key]}` + '&';
             }
-            catch (e) {
-                options.callback(e);
-            }
+            xhr.open('GET', url, true);
+        } else {
+            xhr.open('GET', `${options.url}?mail=${options.email}&password=${options.password}`);
+        }
+        try {
+            xhr.send()
+        }
+        catch (e) {
+            let err = e;
+            options.callback(err, response);
         }
     }
-    if (options.method != 'GET') {
+    else {
         let formdata = new FormData();
         for (key in options.data) {
             formdata.append(key, options.data[key]);
         }
         xhr.open(options.method, options.url, true);
         try {
-            xhr.open(options.method, options.url, true);
             xhr.send(formdata);
         } catch (e) {
-            options.callback(e);
+            let err = e;
+            options.callback(err, response);
         }
     }
     xhr.addEventListener('readystatechange', () => {
