@@ -5,15 +5,16 @@
 const createRequest = (options = {}) => {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
+    const data = options.data;
     if (options.method === 'GET') {
-        if (options.data) {
+        if (data) {
             let url = options.url + '?';
-            for (key in options.data) {
+            for (key in data) {
                url = url + `${key}` + '=' + `${options.data[key]}` + '&';
             }
             xhr.open('GET', url, true);
         } else {
-            xhr.open('GET', `${options.url}?mail=${options.email}&password=${options.password}`);
+            xhr.open('GET', `${options.url}?mail=${options.mail}&password=${options.password}`, true);
         }
         try {
             xhr.send()
@@ -25,10 +26,10 @@ const createRequest = (options = {}) => {
     }
     else {
         let formdata = new FormData();
-        for (key in options.data) {
+        for (key in data) {
             formdata.append(key, options.data[key]);
         }
-        xhr.open(options.method, options.url, true);
+        xhr.open(options.method, url, true);
         try {
             xhr.send(formdata);
         } catch (e) {

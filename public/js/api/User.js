@@ -11,8 +11,12 @@ class User {
   static URL = '/user';
 
   static setCurrent(user) {
-    localStorage.setItem('id', user.id);
-    localStorage.setItem('name', user.name);
+    let currentUser = {
+      id: user.id,
+      name: user.name
+    };
+    let setUser = JSON.stringify(currentUser);
+    localStorage.setItem('user', setUser);
   }
 
   /**
@@ -20,8 +24,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-    localStorage.removeItem('id');
-    localStorage.removeItem('name');
+    localStorage.removeItem('user');
   }
 
   /**
@@ -29,11 +32,9 @@ class User {
    * из локального хранилища
    * */
   static current() {
-    if (localStorage.getItem('id') && localStorage.getItem('name')) {
-      return {
-        id: localStorage.getItem('id'),
-        name: localStorage.getItem('name')
-      }
+    if (localStorage.getItem('user')) {
+      let currentUser = JSON.parse(localStorage.getItem('user'));
+      return currentUser;
     }
     else {
       return undefined
