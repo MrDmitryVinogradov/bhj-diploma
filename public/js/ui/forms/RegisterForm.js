@@ -18,7 +18,7 @@ class RegisterForm extends AsyncForm {
        }
        else {
          this.element.reset();
-         throw err;
+         throw response.error;
        }
      })
   }

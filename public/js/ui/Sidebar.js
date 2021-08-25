@@ -18,7 +18,7 @@ class Sidebar {
    * при нажатии на кнопку .sidebar-toggle
    * */
   static initToggleButton() {
-    const body = document.querySelector('body');
+    const body = document.querySelector('.app');
     const sidebarToggle = document.querySelector('.sidebar-toggle');
     sidebarToggle.addEventListener('click', function (e) {
       e.preventDefault();
@@ -53,17 +53,14 @@ class Sidebar {
       e.preventDefault();
       let modal = App.getModal('login');
       modal.open();
-    } 
+    }
+
     quitButton.onclick = (e) => {
       e.preventDefault();
-      User.logout((err, response) => {
-        if (response.success) {
-          App.setState('init');
-        }
-        else {
-          throw err
-        }
-      })
+      User.logout(() => {
+        App.setState('init');
+        User.unsetCurrent();
+      });
     }
   }
 }

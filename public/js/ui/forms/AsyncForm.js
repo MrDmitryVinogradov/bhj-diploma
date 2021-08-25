@@ -13,8 +13,8 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-    if (element == null) {
-      throw new Error('Элемент не найден!')
+    if (!element) {
+      throw new Error('Элемент не найден!');
     }
     else {
       this.element = element;
@@ -27,9 +27,9 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-    this.onsubmit = (e) => {
+    this.element.onsubmit = (e) => {
       e.preventDefault();
-      this.submit();
+      this.element.submit();
     }
   }
 
@@ -41,14 +41,13 @@ class AsyncForm {
    * }
    * */
   getData() {
-
     const formData = new FormData(this.element);
     let data = {};
     for (let [name, value] of formData) {
-      data[name] = value;
+        data[name] = value;
     }
     return data;
-  }
+}
 
   onSubmit(options) {
 

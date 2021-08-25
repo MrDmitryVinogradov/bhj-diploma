@@ -102,7 +102,6 @@ class User {
         data,
         callback: (err, response) => {
           if (err === null) {
-            if (response.success) {
               this.setCurrent(response.user);
             }
             else {
@@ -110,10 +109,10 @@ class User {
             }
             callback(err, response);
           }
-        }
-      })
+        })
     }
   }
+  
 
 
   /**

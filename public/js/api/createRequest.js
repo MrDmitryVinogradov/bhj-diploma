@@ -14,7 +14,7 @@ const createRequest = (options = {}) => {
             }
             xhr.open('GET', url, true);
         } else {
-            xhr.open('GET', `${options.url}?mail=${options.mail}&password=${options.password}`, true);
+            xhr.open('GET', `${options.url}?mail=${options.mail}&password=${options.password}`);
         }
         try {
             xhr.send()
@@ -29,7 +29,7 @@ const createRequest = (options = {}) => {
         for (key in data) {
             formdata.append(key, options.data[key]);
         }
-        xhr.open(options.method, url, true);
+        xhr.open(options.method, options.url);
         try {
             xhr.send(formdata);
         } catch (e) {
