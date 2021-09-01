@@ -29,7 +29,7 @@ class AsyncForm {
   registerEvents() {
     this.element.onsubmit = (e) => {
       e.preventDefault();
-      this.element.submit();
+      this.submit();
     }
   }
 
@@ -42,12 +42,18 @@ class AsyncForm {
    * */
   getData() {
     const formData = new FormData(this.element);
-    let data = {};
-    for (let [name, value] of formData) {
-        data[name] = value;
+    const entries = formData.entries();
+    const data = {};
+
+    for (let item of entries) {
+      const name = item[0];
+      const value = item[1];
+
+      data[name] = value;
     }
     return data;
-}
+  }
+
 
   onSubmit(options) {
 

@@ -47,19 +47,16 @@ class User {
    * */
   static fetch(callback) {
     createRequest({
-      method: 'GET',
       url: this.URL + '/current',
+      method: 'GET',
+      data: null,
       callback: (err, response) => {
-        if (err === null) {
-          callback(err, response);
-          if (response.success) {
-            this.current();
-          }
-          else {
-            this.unsetCurrent();
-            console.log(response.error);
-          }
+        if (response && response.user) {
+          this.setCurrent(response.user);
+        } else {
+          this.unsetCurrent();
         }
+        callback(err, response);
       }
     });
   }
@@ -80,7 +77,7 @@ class User {
           if (response.success) {
             this.setCurrent(response.user);
           } else {
-            console.log(response.error);
+            alert(response.error);
           }
           callback(err, response);
         }
@@ -95,24 +92,19 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-    if (data.name && data.mail && data.password) {
-      createRequest({
-        url: this.URL + '/register',
-        method: 'POST',
-        data,
-        callback: (err, response) => {
-          if (err === null) {
-              this.setCurrent(response.user);
-            }
-            else {
-              console.log(response.error);
-            }
-            callback(err, response);
-          }
-        })
-    }
+    createRequest({
+      url: this.URL + '/register',
+      method: 'POST',
+      data,
+      callback: (err, response) => {
+        if (response && response.user) {
+          this.setCurrent(response.user);
+        }
+        callback(err, response);
+      }
+    });
   }
-  
+
 
 
   /**

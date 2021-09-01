@@ -58,7 +58,7 @@ class Entity {
       method: 'DELETE',
       url: this.URL,
       callback: (err, response) => {
-        if (err === null) {
+        if (err == null) {
           callback(err, response.data);
         }
         else {
